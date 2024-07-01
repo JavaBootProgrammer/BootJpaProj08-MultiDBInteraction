@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name="MULTI_DB_PRODUCT")
+@Table(name = "MULTI_DB_PRODUCT")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,17 +21,17 @@ import lombok.RequiredArgsConstructor;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private  Integer pid;
-	
+	private Integer pid;
+
 	@Column(length = 25)
 	@NonNull
-	private  String pname;
+	private String pname;
 	@NonNull
-	private  Double price;
+	private Double price;
 	@NonNull
-	private  Double  qty;
+	private Double qty;
 	@Column(length = 20)
 	@NonNull
-	private   String  vendor;
+	private String vendor;
 
 }

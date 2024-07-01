@@ -17,25 +17,24 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
-@Table(name="MULTI_DB_OFFERS")
+@Table(name = "MULTI_DB_OFFERS")
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Offers {
 	@Id
-	@SequenceGenerator(name="gen1",sequenceName = "offer_seq",
-	                                            initialValue = 10000 ,allocationSize = 1)
-	@GeneratedValue(generator = "gen1",strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "gen1", sequenceName = "offer_seq", initialValue = 10000, allocationSize = 1)
+	@GeneratedValue(generator = "gen1", strategy = GenerationType.SEQUENCE)
 	private Integer offerId;
 	@NonNull
 	@Column(length = 20)
-	private  String offerName;
+	private String offerName;
 	@Column(length = 20)
 	@NonNull
-	private   String  offerCode;
+	private String offerCode;
 	@NonNull
-	private   Float  discountPercentage;
+	private Float discountPercentage;
 	@NonNull
-	private   LocalDateTime  expiryDate;
+	private LocalDateTime expiryDate;
 
 }

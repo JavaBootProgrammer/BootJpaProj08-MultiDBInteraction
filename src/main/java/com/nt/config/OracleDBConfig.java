@@ -20,44 +20,35 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.nt.repository.prod",
-                                                 entityManagerFactoryRef = "oraEMF",
-                                                 transactionManagerRef = "oraTxMgmr")
+@EnableJpaRepositories(basePackages = "com.nt.repository.prod", entityManagerFactoryRef = "oraEMF", transactionManagerRef = "oraTxMgmr")
 @EnableTransactionManagement
 public class OracleDBConfig {
-	
-	
-	
-	@Bean(name="OraDs")
+
+	@Bean(name = "OraDs")
 	@ConfigurationProperties(prefix = "oracle.datasource")
 	@Primary
-	public   DataSource  createOraDs() {
-		return  DataSourceBuilder.create().build();
+	public DataSource createOraDs() {
+		return DataSourceBuilder.create().build();
 	}
-	
-	@Bean(name="oraEMF")
+
+	@Bean(name = "oraEMF")
 	@Primary
-	public LocalContainerEntityManagerFactoryBean  createOraEMF(EntityManagerFactoryBuilder builder) {
-		  //prepare  Oracle Hibernate Properties
-		    Map<String,String>  props=new HashMap();
-		    props.put("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
-		    props.put("hibernate.hbm2ddl.auto","update");
-		    props.put("hibernate.show_sql", "true");
-		 //  create and  return LocalContainerEntityMangerFactoryBean class obj  which
-		    // is  FactoryBean  giving EntityManagerFactoryBean class obj
-		    
-		    return  builder.dataSource(createOraDs())
-		    		      .packages("com.nt.model.prod")
-		    		      .properties(props)
-		    		      .build();
+	public LocalContainerEntityManagerFactoryBean createOraEMF(EntityManagerFactoryBuilder builder) {
+		// prepare Oracle Hibernate Properties
+		Map<String, String> props = new HashMap();
+		props.put("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
+		props.put("hibernate.hbm2ddl.auto", "update");
+		props.put("hibernate.show_sql", "true");
+		// create and return LocalContainerEntityMangerFactoryBean class obj which
+		// is FactoryBean giving EntityManagerFactoryBean class obj
+
+		return builder.dataSource(createOraDs()).packages("com.nt.model.prod").properties(props).build();
 	}
-	
-	
-	@Bean(name="oraTxMgmr")
+
+	@Bean(name = "oraTxMgmr")
 	@Primary
-	public  JpaTransactionManager  createOraTxMgmr(@Qualifier("oraEMF") EntityManagerFactory  factory) {
-		return  new JpaTransactionManager(factory);
+	public JpaTransactionManager createOraTxMgmr(@Qualifier("oraEMF") EntityManagerFactory factory) {
+		return new JpaTransactionManager(factory);
 	}
-	
 
 }
